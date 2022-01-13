@@ -6,6 +6,8 @@
       <change beforePath="$PROJECT_DIR$/../leodb/mog/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/../leodb/mog/init.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../leolog/logs.go" beforeDir="false" afterPath="$PROJECT_DIR$/../leolog/logs.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../leoutil/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/../leoutil/util.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine.go" beforeDir="false" afterPath="$PROJECT_DIR$/engine.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/file.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socket.go" beforeDir="false" afterPath="$PROJECT_DIR$/socket.go" afterDir="false" />
@@ -17,7 +19,7 @@
   </component>
   <component name="GOROOT" path="D:\Go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="23dM6fSdEInzeYebSyZ4uKLU9aN" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -42,9 +44,13 @@
     <proxy>direct</proxy>
   </component>
   <component name="WindowStateProjectService">
-    <state x="677" y="145" key="SettingsEditor" timestamp="1642059664491">
+    <state x="956" y="258" key="FileChooserDialogImpl" timestamp="1642060245079">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="677" y="145" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1642059664491" />
+    <state x="956" y="258" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1642060245079" />
+    <state x="677" y="145" key="SettingsEditor" timestamp="1642060261370">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="677" y="145" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1642060261370" />
   </component>
 </project>
