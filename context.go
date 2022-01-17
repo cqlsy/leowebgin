@@ -1,5 +1,7 @@
 package leowebgin
 
+import "io/ioutil"
+
 /**
 query 参数
 */
@@ -38,4 +40,14 @@ func (context *Context) ResponseJSON(obj interface{}) {
 
 func (context *Context) ResponseFile(filepath string) {
 	context.context.File(filepath)
+}
+
+// 获取Body的数据
+func (c *Context) GetRawData() ([]byte, error) {
+	return ioutil.ReadAll(c.context.Request.Body)
+}
+
+// 获取 header 的数据
+func (c *Context) GetHeader(key string) string {
+	return c.context.GetHeader(key)
 }
