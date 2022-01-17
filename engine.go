@@ -2,6 +2,7 @@ package leowebgin
 
 import (
 	"fmt"
+	"github.com/cqlsy/leolog"
 	"github.com/cqlsy/leotime"
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
@@ -22,6 +23,17 @@ func NewEngine(runMode RunMode) *Engine {
 	web.engine.Use(cors(), gzip.Gzip(gzip.DefaultCompression), web.middleLog(), web.recovery())
 	return web
 }
+
+//  ip:0.0.0.0  port:8080
+func (w *Engine) StartListen(ip interface{}, port interface{}) {
+	str := fmt.Sprintf("%v:%v", ip, port)
+	leolog.Print("Web Listener On:" + str)
+	err := w.engine.Run(str)
+	if err != nil {
+		panic(fmt.Sprintf("Listener %s error: %s", str, err.Error()))
+	}
+}
+
 
 func (engine *Engine) isProduction() bool {
 	return engine.runMode == Pro
