@@ -4,27 +4,30 @@ import (
 	"errors"
 	"github.com/cqlsy/leofile"
 	fileUtil "github.com/cqlsy/leofile/action"
-	"github.com/gin-gonic/gin"
 )
 
 // Download the file, when the file is not directly accessible, you need to use this interface to access
-func DownLoadFile(c *gin.Context, filePath string) error {
+// 下载文件时,调用这个方法
+func DownLoadFile(context *Context, filePath string) error {
+	c := context.context
 	if len(filePath) == 0 || !leofile.FileExists(filePath) {
 		//c.JSON(200, ResponseMsg{-1, "error, no such file: " + filePath, ""})
 		return errors.New("error, no such file: " + filePath)
 	}
 	c.Header("Content-Type", "application/octet-stream")
-	c.Header("Content-Disposition", "attachment; filename="+fileUtil.GetFilName(filePath))
 	c.Header("Content-Transfer-Encoding", "binary")
-	// down load
-	//c.Header("Content-Disposition", "attachment; filename="+d["name"].(string))
-	// show
+
+	// downLoad
+	c.Header("Content-Disposition", "attachment; filename="+fileUtil.GetFilName(filePath))
+	// show to explorer
 	//c.Header("Content-Disposition", "inline;filename="+d["name"].(string))
 	c.File(filePath)
 	return nil
 }
 
-func UploadFile(c *gin.Context, key string) (string, error) {
+// 上传文件
+func UploadFile(context *Context, key string) (string, error) {
+	c := context.context
 	fileHeader, err := c.FormFile(key)
 	//fileHeader.Header.
 	if err != nil {
@@ -40,7 +43,9 @@ func UploadFile(c *gin.Context, key string) (string, error) {
 }
 
 // On many files
-func UploadFiles(c *gin.Context) ([]string, error) {
+// 上传多个文件
+func UploadFiles(context *Context) ([]string, error) {
+	c := context.context
 	var result []string
 	form, err := c.MultipartForm()
 	if err != nil {

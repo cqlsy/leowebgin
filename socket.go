@@ -3,44 +3,48 @@ package leowebgin
 import (
 	"fmt"
 	"github.com/cqlsy/leoutil"
-	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"net/http"
 )
 
-func (w *WebGin) AddSocketClient(path string, manager *SocketManager, upgrader *websocket.Upgrader) {
-	w.Gin.GET(path, manager.WsHandler(upgrader))
+//  这是一个测试的 socket初始化
+func initTestSocket() {
+	manager := NewManager(
+		nil,
+		func(client *SocketClient, msg []byte) {
+			//leolog.LogInfoDefault(string(msg))
+
+			// manager.Clients 这里保存了所有的socket的链接.需要的时候在这里寻找
+			// 发送消息
+			client.SendMessage([]byte(fmt.Sprintf("service callback：%s", msg)))
+		},
+	)
+	// socket
+	var s *Engine
+	s = &Engine{
+		engine:  nil,
+		log:     nil,
+		runMode: "",
+	}
+	s.AddSocketClient("/socket", manager, nil)
+}
+
+func (engine *Engine) AddSocketClient(path string, manager *SocketManager, upgrader *websocket.Upgrader) {
+	engine.Get(path, manager.defaultWsHandler(upgrader))
 	go manager.start()
 }
 
-// Client is a websocket client
-type Client struct {
-	ID          string
-	socket      *websocket.Conn
-	send        chan []byte
-	isSendClose bool
-	ExtData     string // used for indentify data
-}
-
-// SocketManager is a websocket manager
-type SocketManager struct {
-	Clients      map[string]*Client
-	register     chan *Client
-	unregister   chan *Client
-	generateID   func(c *gin.Context) string
-	onGetMessage func(client *Client, msg []byte)
-	log          func(errStr string)
-}
-
-func NewManager(geId func(c *gin.Context) string,
-	onGetMessage func(client *Client, msg []byte)) *SocketManager {
+// 生成当前的管理实例
+func NewManager(geId func(c *Context) string,
+	onGetMessage func(client *SocketClient, msg []byte)) *SocketManager {
 	manage := &SocketManager{
-		register:   make(chan *Client),
-		unregister: make(chan *Client),
-		Clients:    make(map[string]*Client),
+		register:   make(chan *SocketClient),
+		unregister: make(chan *SocketClient),
+		Clients:    make(map[string]*SocketClient),
 	}
 	if geId == nil {
-		geId = func(c *gin.Context) string {
+		geId = func(c *Context) string {
+			// 当用户没有自定义当前的socket链接ID,这里生成默认的.
 			return leoutil.RandString(32, "socket")
 		}
 	}
@@ -49,19 +53,23 @@ func NewManager(geId func(c *gin.Context) string,
 	return manage
 }
 
+// 注册log的方式
 func (manager *SocketManager) InitLog(f func(str string)) {
 	manager.log = f
 }
 
-func (c *Client) SendMessage(message []byte) {
+// 发送消息的方法
+func (c *SocketClient) SendMessage(message []byte) {
 	if c.isSendClose {
 		return
 	}
 	c.send <- message
 }
 
-func (manager *SocketManager) WsHandler(Upgrader *websocket.Upgrader) func(c *gin.Context) {
-	return func(c *gin.Context) {
+// 把http链接升级WebSocket的链接
+func (manager *SocketManager) defaultWsHandler(Upgrader *websocket.Upgrader) func(c *Context) {
+	return func(context *Context) {
+		c := context.context
 		if Upgrader == nil {
 			Upgrader = upGraderDefault()
 		}
@@ -71,61 +79,20 @@ func (manager *SocketManager) WsHandler(Upgrader *websocket.Upgrader) func(c *gi
 			return
 		}
 		// create client for ws
-		client := &Client{
+		client := &SocketClient{
 			ID:          manager.generateID(c),
 			socket:      conn,
 			send:        make(chan []byte),
 			isSendClose: false,
 		}
 		manager.register <- client
+		// 启动当前通道的读写
 		go client.read(manager)
 		go client.write(manager)
 	}
 }
 
-func (c *Client) read(manager *SocketManager) {
-	defer func() {
-		manager.unregister <- c
-		_ = c.socket.Close()
-	}()
-	for {
-		_, message, err := c.socket.ReadMessage()
-		if err != nil {
-			// if read message err ,we disconnect
-			manager.unregister <- c
-			_ = c.socket.Close()
-			break
-		}
-		// callback on get message
-		if manager.onGetMessage != nil {
-			manager.onGetMessage(c, message)
-		}
-	}
-}
-
-// send message to user
-func (c *Client) write(manager *SocketManager) {
-	defer func() {
-		_ = c.socket.Close()
-	}()
-	for {
-		select {
-		case message, ok := <-c.send:
-			if !ok {
-				err := c.socket.WriteMessage(websocket.CloseMessage, []byte{})
-				if err != nil && manager.log != nil {
-					manager.log(err.Error())
-				}
-				return
-			}
-			err := c.socket.WriteMessage(websocket.TextMessage, message)
-			if err != nil && manager.log != nil {
-				manager.log(err.Error())
-			}
-		}
-	}
-}
-
+// 设置是否允许跨域
 func upGraderDefault() *websocket.Upgrader {
 	return &websocket.Upgrader{
 		CheckOrigin: func(r *http.Request) bool {
@@ -134,7 +101,7 @@ func upGraderDefault() *websocket.Upgrader {
 	}
 }
 
-// restart on error
+// 服务注册，注销的通道
 func (manager *SocketManager) start() {
 	defer func() {
 		err := recover()
@@ -155,6 +122,50 @@ func (manager *SocketManager) start() {
 				conn.isSendClose = true
 				close(conn.send)
 				delete(manager.Clients, conn.ID)
+			}
+		}
+	}
+}
+
+// 读取信息的通道
+func (c *SocketClient) read(manager *SocketManager) {
+	defer func() {
+		manager.unregister <- c
+		_ = c.socket.Close()
+	}()
+	for {
+		_, message, err := c.socket.ReadMessage()
+		if err != nil {
+			// if read message err ,we disconnect
+			manager.unregister <- c
+			_ = c.socket.Close()
+			break
+		}
+		// callback on get message
+		if manager.onGetMessage != nil {
+			manager.onGetMessage(c, message)
+		}
+	}
+}
+
+// 写入数据的通道
+func (c *SocketClient) write(manager *SocketManager) {
+	defer func() {
+		_ = c.socket.Close()
+	}()
+	for {
+		select {
+		case message, ok := <-c.send:
+			if !ok {
+				err := c.socket.WriteMessage(websocket.CloseMessage, []byte{})
+				if err != nil && manager.log != nil {
+					manager.log(err.Error())
+				}
+				return
+			}
+			err := c.socket.WriteMessage(websocket.TextMessage, message)
+			if err != nil && manager.log != nil {
+				manager.log(err.Error())
 			}
 		}
 	}
