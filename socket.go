@@ -80,7 +80,7 @@ func (manager *SocketManager) defaultWsHandler(Upgrader *websocket.Upgrader) fun
 		}
 		// create client for ws
 		client := &SocketClient{
-			ID:          manager.generateID(c),
+			ID:          manager.generateID(context),
 			socket:      conn,
 			send:        make(chan []byte),
 			isSendClose: false,
