@@ -19,7 +19,7 @@ func NewEngine(runMode RunMode) *Engine {
 	web.runMode = runMode
 	//web.Gin = gin.Default()
 	web.engine = gin.New()
-	// set common middle func
+	// set com mon middle func
 	web.engine.Use(cors(), gzip.Gzip(gzip.DefaultCompression), web.middleLog(), web.recovery())
 	return web
 }

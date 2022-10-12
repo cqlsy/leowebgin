@@ -60,6 +60,9 @@ func (manager *SocketManager) InitLog(f func(str string)) {
 
 // 发送消息的方法
 func (c *SocketClient) SendMessage(message []byte) {
+	defer func() {
+		_ = recover()
+	}()
 	if c.isSendClose {
 		return
 	}

@@ -4,6 +4,7 @@
     <list default="true" id="4326c27e-9e37-4dc3-8b5d-5d3ed5384a08" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../leodb/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/../leodb/db.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../leodb/mog/action.go" beforeDir="false" afterPath="$PROJECT_DIR$/../leodb/mog/action.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../leodb/mog/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/../leodb/mog/init.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../leolog/logs.go" beforeDir="false" afterPath="$PROJECT_DIR$/../leolog/logs.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../leoutil/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/../leoutil/util.go" afterDir="false" />
@@ -33,7 +34,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../leostrconv" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
