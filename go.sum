@@ -65,6 +65,7 @@ github.com/cqlsy/leofile v1.0.1/go.mod h1:rkgfuDJrpLHpfTUFfWgAPVohCctB5FLFl41wW6
 github.com/cqlsy/leofile v1.1.0/go.mod h1:B1WwGCwlYNs4tuF+sFVR3vy/NRd7Ds7/DUpfq7qIr8M=
 github.com/cqlsy/leolog v0.0.0-20220113072646-c3d1d2c3c29d h1:I6qcVOtdnLREMMfNxfp54joDRWvwKUkKCMNfKVmiFAg=
 github.com/cqlsy/leolog v0.0.0-20220113072646-c3d1d2c3c29d/go.mod h1:C0dDC/t1SblAJ3Yo7iD0Q4+V88r97SPknh05PprERj0=
+github.com/cqlsy/leolog v1.1.0/go.mod h1:RnUpX//oH8tsWWYNkxd1IjRE2gt72WWK7n9mIvoRsJY=
 github.com/cqlsy/leotime v0.0.0-20220113063708-e97a70e28960 h1:SlOVCZ2RgSMZoC3MIyjldP0rx9W67escX018lFKxqQU=
 github.com/cqlsy/leotime v0.0.0-20220113063708-e97a70e28960/go.mod h1:r9zpaegI7c1CzWAtHKbTU1gV3dTCF+23ezHeAwWQHRw=
 github.com/cqlsy/leotime v1.1.0/go.mod h1:r9zpaegI7c1CzWAtHKbTU1gV3dTCF+23ezHeAwWQHRw=
