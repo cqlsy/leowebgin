@@ -7,15 +7,12 @@ import (
 	"net/http"
 )
 
-//  这是一个测试的 socket初始化
 func initTestSocket() {
 	manager := NewManager(
 		nil,
 		func(client *SocketClient, msg []byte) {
 			//leolog.LogInfoDefault(string(msg))
-
-			// manager.Clients 这里保存了所有的socket的链接.需要的时候在这里寻找
-			// 发送消息
+			// manager.Clients
 			client.SendMessage([]byte(fmt.Sprintf("service callback：%s", msg)))
 		},
 	)

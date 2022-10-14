@@ -12,6 +12,15 @@ const (
 	Dev RunMode = "dev"
 )
 
+type WebConf struct {
+	Ip      string
+	Port    int
+	LogPath string
+	RunMode string
+	SaveFilePath string
+	PicDoMain    string
+}
+
 // 日志打印
 type Logger func(isPro bool, logStr string)
 
@@ -58,4 +67,3 @@ type SocketClient struct {
 	ExtData     string          // used for indentify data
 
 }
-

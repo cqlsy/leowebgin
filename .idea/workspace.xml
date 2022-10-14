@@ -34,7 +34,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../leoutil" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -45,13 +45,9 @@
     <proxy>direct</proxy>
   </component>
   <component name="WindowStateProjectService">
-    <state x="956" y="258" key="FileChooserDialogImpl" timestamp="1642061021020">
+    <state x="585" y="272" key="FileChooserDialogImpl" timestamp="1665728797841">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="956" y="258" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1642061021020" />
-    <state x="677" y="145" key="SettingsEditor" timestamp="1642060261370">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="677" y="145" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1642060261370" />
+    <state x="585" y="272" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1665728797841" />
   </component>
 </project>

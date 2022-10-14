@@ -64,8 +64,9 @@ github.com/cqlsy/leolog v0.0.0-20220113072646-c3d1d2c3c29d h1:I6qcVOtdnLREMMfNxf
 github.com/cqlsy/leolog v0.0.0-20220113072646-c3d1d2c3c29d/go.mod h1:C0dDC/t1SblAJ3Yo7iD0Q4+V88r97SPknh05PprERj0=
 github.com/cqlsy/leotime v0.0.0-20220113063708-e97a70e28960 h1:SlOVCZ2RgSMZoC3MIyjldP0rx9W67escX018lFKxqQU=
 github.com/cqlsy/leotime v0.0.0-20220113063708-e97a70e28960/go.mod h1:r9zpaegI7c1CzWAtHKbTU1gV3dTCF+23ezHeAwWQHRw=
-github.com/cqlsy/leoutil v0.0.0-20220113065944-a96d37eb0d37 h1:dtcTnQcEBFYgGoDP8d+KVXJ+HdyjfN2ivBzIz6NOhzY=
 github.com/cqlsy/leoutil v0.0.0-20220113065944-a96d37eb0d37/go.mod h1:6bQoCy0K1/M8FDXu218wXy+DhdTMu1LoSJSv8gKGRxs=
+github.com/cqlsy/leoutil v1.0.1 h1:sozPNM86NF4sPbdL/+cWdhTJkh63UjHqOPRTXE6WhAA=
+github.com/cqlsy/leoutil v1.0.1/go.mod h1:6bQoCy0K1/M8FDXu218wXy+DhdTMu1LoSJSv8gKGRxs=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
