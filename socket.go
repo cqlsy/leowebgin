@@ -11,7 +11,7 @@ func initTestSocket() {
 	manager := NewManager(
 		nil,
 		func(client *SocketClient, msg []byte) {
-			//leolog.LogInfoDefault(string(msg))
+			// leolog.LogInfoDefault(string(msg))
 			// manager.Clients
 			client.SendMessage([]byte(fmt.Sprintf("service callback：%s", msg)))
 		},
@@ -101,6 +101,18 @@ func upGraderDefault() *websocket.Upgrader {
 	}
 }
 
+// 更新socket实例保存的 key ，方便与查询
+func (m *SocketManager) ChangeId(c *SocketClient, newId string) {
+	defer func() {
+		err := recover()
+		if err != nil {
+			m.log(fmt.Sprintf("%v", err))
+		}
+	}()
+	c.UpdateId = newId
+	m.update <- c
+}
+
 // 服务注册，注销的通道
 func (manager *SocketManager) start() {
 	defer func() {
@@ -123,6 +135,17 @@ func (manager *SocketManager) start() {
 				close(conn.send)
 				delete(manager.Clients, conn.ID)
 			}
+		case conn := <-manager.update:
+			if len(conn.ID) == 0 {
+				break
+			}
+			// 更新socket的实力的Key，方便查询
+			if _, ok := manager.Clients[conn.ID]; ok {
+				delete(manager.Clients, conn.ID)
+				conn.ID = conn.UpdateId
+				conn.UpdateId = ""
+				manager.Clients[conn.ID] = conn
+			}
 		}
 	}
 }
@@ -139,7 +162,7 @@ func (c *SocketClient) read(manager *SocketManager) {
 			// if read message err ,we disconnect
 			manager.unregister <- c
 			_ = c.socket.Close()
-			break
+			break // 退出循环
 		}
 		// callback on get message
 		if manager.onGetMessage != nil {
