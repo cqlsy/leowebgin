@@ -66,6 +66,13 @@ func (context *Context) GetBodyParams() (map[string]interface{}, error) {
 	return data, err
 }
 
+//params is a struct address
+func (context *Context) GetBodyParamsStruct(params interface{}) error {
+	c := context.context
+	err := c.ShouldBind(params)
+	return err
+}
+
 func (context *Context) ResponseJSON(obj interface{}) {
 	context.context.JSON(200, obj)
 }

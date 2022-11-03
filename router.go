@@ -50,6 +50,6 @@ func (engine *Engine) StaticDir(path, filePath string) {
 }
 
 func (engine *Engine) StaticDirPackr(path, filePath string) {
-	engine.engine.StaticFS(path, packr.New(path, filePath)) // 静态文件夹
+	engine.engine.StaticFS(path, packr.New(filePath, filePath)) // 静态文件夹
 	// engine.engine.StaticFile() 静态文件，
 }

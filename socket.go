@@ -38,6 +38,7 @@ func NewManager(geId func(c *Context) string,
 		register:   make(chan *SocketClient),
 		unregister: make(chan *SocketClient),
 		Clients:    make(map[string]*SocketClient),
+		update:     make(chan *SocketClient),
 	}
 	if geId == nil {
 		geId = func(c *Context) string {
