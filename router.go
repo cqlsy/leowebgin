@@ -11,9 +11,9 @@ type Fun func(content *Context)
 // 自定义 方法转化为 gin.HandlerFunc
 func parseFun(fun ...Fun) []gin.HandlerFunc {
 	var ff []gin.HandlerFunc
-	for _, f := range fun {
+	for index, _ := range fun {
 		ff = append(ff, func(context *gin.Context) {
-			f(&Context{context: context})
+			fun[index](&Context{context: context})
 		})
 	}
 	return ff
