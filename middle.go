@@ -46,7 +46,6 @@ func (engine *Engine) middleLog() gin.HandlerFunc {
 		if engine.log == nil {
 			return
 		}
-		engine.log(engine.runMode == Pro, formatRequestLog(c))
 		c.Next()
 		engine.log(engine.runMode == Pro, formatRequestLog(c))
 	}
