@@ -8,13 +8,18 @@ import (
 
 type Fun func(content *Context)
 
+func mid(fun Fun) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fun(&Context{context: c})
+	}
+}
+
 // 自定义 方法转化为 gin.HandlerFunc
 func parseFun(fun ...Fun) []gin.HandlerFunc {
 	var ff []gin.HandlerFunc
 	for index, _ := range fun {
-		ff = append(ff, func(context *gin.Context) {
-			fun[index](&Context{context: context})
-		})
+		var i = index
+		ff = append(ff, mid(fun[i]))
 	}
 	return ff
 }
